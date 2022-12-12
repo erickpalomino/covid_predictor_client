@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import { ThemeProvider } from '@mui/material/styles';
+import CustomTheme from './utils/Theme';
+import Footer from './components/Footer';
+import TopBar from './components/TopBar';
+import HomePage from './pages/Home';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PredictionPage from './pages/Prediction';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Box sx={{ flexGrow: 1 }}>
+      <ThemeProvider theme={CustomTheme}>
+        <TopBar />
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<HomePage />} />
+            <Route path="/prediction" element={<PredictionPage/>} />
+          </Routes>
+        </BrowserRouter>
+        <Footer />
+      </ThemeProvider>
+    </Box>
+  )
 }
 
 export default App;
