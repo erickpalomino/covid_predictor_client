@@ -28,6 +28,7 @@ export default function HomePage() {
     const handleDateChange = (event) => { 
         console.log(event.target.value)
         setSelectedDate(event.target.value); 
+        setSelectedDate(selectedDate); 
         CovAxios.get("/infection/7days?date="+selectedDate).
             then((response) => {
                 console.log(response.data)
