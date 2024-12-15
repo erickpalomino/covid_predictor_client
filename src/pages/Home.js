@@ -8,7 +8,7 @@ export default function HomePage() {
     const [chartData, setchartData] = useState([]);
     const [selectedDate, setSelectedDate] = useState('');
     useEffect(() => {
-        CovAxios.get("/infection/7days?date=2022-02-13").
+        CovAxios.get("/infection/7days").
             then((response) => {
                 console.log(response.data)
                 console.log(reshapeChartData(response.data))
@@ -16,6 +16,16 @@ export default function HomePage() {
             });
       }, []);
     
+
+      useEffect(() => {
+        CovAxios.get("/infection/7days?date="+selectedDate).
+            then((response) => {
+                console.log(response.data)
+                console.log(reshapeChartData(response.data))
+                setchartData(reshapeChartData(response.data))
+            });
+      }, [selectedDate]);
+
 
     const handlePredictButton = ()=>{
         CovAxios.get("/infection/7days/predict?date="+selectedDate).
@@ -27,8 +37,8 @@ export default function HomePage() {
     }
     const handleDateChange = (event) => { 
         console.log(event.target.value)
-        setSelectedDate(event.target.value); 
-        setSelectedDate(selectedDate); 
+        setSelectedDate(event.target.value);
+        console.log(selectedDate);
         CovAxios.get("/infection/7days?date="+selectedDate).
             then((response) => {
                 console.log(response.data)
